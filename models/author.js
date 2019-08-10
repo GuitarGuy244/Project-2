@@ -13,7 +13,7 @@ var Author = sequelize.define("Author", {
       type: DataTypes.STRING,
       allowNull: false
     },
-    favourate: {
+    favourite: {
       type: DataTypes.STRING,
       allowNull: true
     },
@@ -22,5 +22,14 @@ var Author = sequelize.define("Author", {
       allowNull: true
     }
   });
+
+  Author.associate = function(models) {
+    // Associating Author with Posts
+    // When an Author is deleted, also delete any associated Posts
+    Author.hasMany(models.Recipe, {
+      onDelete: "cascade"
+    });
+  };
+  
   return Author;
 };
